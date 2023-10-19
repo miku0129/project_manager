@@ -1,8 +1,9 @@
 const path = require("path");
 const CleanPlugin = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/app.ts",
   devServer: {
     static: [
@@ -27,5 +28,13 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js"],
   },
-  plugins: [new CleanPlugin.CleanWebpackPlugin()],
+  plugins: [
+    new CleanPlugin.CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      // injects bundle.js to our new index.html
+      inject: true,
+      // copys the content of the existing index.html to the new /build index.html
+      template: path.resolve("./index.html"),
+    }),
+  ],
 };
