@@ -49,6 +49,6 @@ module.exports = {
       // copys the content of the existing index.html to the new /build index.html
       template: path.resolve("./index.html"),
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({ filename: "app.css" }),
   ],
 };
