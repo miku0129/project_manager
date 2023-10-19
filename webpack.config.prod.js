@@ -1,6 +1,7 @@
 const path = require("path");
 const CleanPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "production",
@@ -20,7 +21,19 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        // use: "ts-loader",
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "ts-loader",
+          },
+        ],
+
         exclude: /node_modules/,
       },
     ],
@@ -36,5 +49,6 @@ module.exports = {
       // copys the content of the existing index.html to the new /build index.html
       template: path.resolve("./index.html"),
     }),
+    new MiniCssExtractPlugin(),
   ],
 };
