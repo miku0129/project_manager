@@ -1,10 +1,18 @@
 const path = require("path");
+const fs = require("fs");
+const fsExtra = require("fs-extra");
 const CleanPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const dist = `${__dirname}/dist`;
+if (fs.existsSync(dist)) {
+  fsExtra.removeSync(dist);
+}
+fs.mkdirSync(dist);
+
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: "./src/app.ts",
   devServer: {
     static: [
@@ -26,14 +34,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          {
-            loader: "css-loader",
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
         exclude: /node_modules/,
       },
     ],
