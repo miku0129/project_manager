@@ -2,6 +2,7 @@ const path = require("path");
 const CleanPlugin = require("clean-webpack-plugin");
 
 module.exports = {
+  mode: "development",
   entry: "./src/app.ts",
   devServer: {
     static: [
