@@ -21,7 +21,11 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        // use: "ts-loader",
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -29,11 +33,7 @@ module.exports = {
           {
             loader: "css-loader",
           },
-          {
-            loader: "ts-loader",
-          },
         ],
-
         exclude: /node_modules/,
       },
     ],
